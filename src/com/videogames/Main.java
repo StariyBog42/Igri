@@ -34,7 +34,6 @@ public class Main {
             queries.query1();
             queries.query2();
             queries.query3();
-            queries.query4();
             queries.query5();
             queries.query6();
             queries.query7();
@@ -78,3 +77,4 @@ public class Main {
         }
     }
 }
+
