@@ -77,37 +77,6 @@ public class GameQueries {
         }
     }
 
-    public void query4() {
-        System.out.println("\n=== 4. Спортивные игры (2000-2006) ===");
-
-        String sql = """
-            SELECT name, platform, year, eu_sales, global_sales 
-            FROM games 
-            WHERE genre LIKE '%Sport%' AND year BETWEEN 2000 AND 2006
-            ORDER BY eu_sales DESC
-            """;
-
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-
-            System.out.printf("%-30s %-10s %-6s %-10s %-10s%n",
-                    "Игра", "Платформа", "Год", "Европа", "Глобально");
-            System.out.println("--------------------------------------------------------------");
-
-            while (rs.next()) {
-                System.out.printf("%-30s %-10s %-6d %-10.2f %-10.2f%n",
-                        rs.getString("name"),
-                        rs.getString("platform"),
-                        rs.getInt("year"),
-                        rs.getDouble("eu_sales"),
-                        rs.getDouble("global_sales"));
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Ошибка выполнения запроса 4: " + e.getMessage());
-        }
-    }
-
     public void query5() {
         System.out.println("\n=== 5. Топ-10 игр по продажам в Европе ===");
 
@@ -356,4 +325,5 @@ public class GameQueries {
         public double getGlobalSales() { return globalSales; }
     }
 }
+
 
