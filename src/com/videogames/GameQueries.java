@@ -200,6 +200,81 @@ public class GameQueries {
         }
     }
 
+    public void query8() {
+        System.out.println("\n=== 8. Топ спортивных игр (2000-2006) по продажам в Японии ===");
+
+        String sql = """
+        SELECT 
+            name, 
+            platform, 
+            year, 
+            genre,
+            jp_sales,
+            eu_sales,
+            na_sales,
+            global_sales
+        FROM games 
+        WHERE genre LIKE '%Sport%' 
+            AND year BETWEEN 2000 AND 2006
+            AND jp_sales > 0
+        ORDER BY jp_sales DESC
+        LIMIT 10
+        """;
+
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            System.out.printf("%-30s %-10s %-6s %-10s %-10s %-10s %-10s%n",
+                    "Игра", "Платформа", "Год", "Япония", "Европа", "США", "Глобально");
+            System.out.println("--------------------------------------------------------------------------------------------");
+
+            int position = 1;
+            boolean found = false;
+
+            while (rs.next()) {
+                found = true;
+                System.out.printf("%-30s %-10s %-6d %-10.2f %-10.2f %-10.2f %-10.2f%n",
+                        rs.getString("name"),
+                        rs.getString("platform"),
+                        rs.getInt("year"),
+                        rs.getDouble("jp_sales"),
+                        rs.getDouble("eu_sales"),
+                        rs.getDouble("na_sales"),
+                        rs.getDouble("global_sales"));
+            }
+
+            if (!found) {
+                System.out.println("Спортивные игры за период 2000-2006 не найдены.");
+            }
+
+            // Дополнительно: вывод самой продаваемой игры
+            String sqlTop1 = """
+            SELECT name, platform, year, jp_sales
+            FROM games 
+            WHERE genre LIKE '%Sport%' 
+                AND year BETWEEN 2000 AND 2006
+            ORDER BY jp_sales DESC
+            LIMIT 1
+            """;
+
+            try (Statement stmt2 = connection.createStatement();
+                 ResultSet rs2 = stmt2.executeQuery(sqlTop1)) {
+
+                if (rs2.next()) {
+                    System.out.println("\n★ Самая продаваемая спортивная игра в Японии (2000-2006):");
+                    System.out.printf("   %s (%s, %d год) - %.2f млн. копий%n",
+                            rs2.getString("name"),
+                            rs2.getString("platform"),
+                            rs2.getInt("year"),
+                            rs2.getDouble("jp_sales"));
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Ошибка выполнения запроса 8: " + e.getMessage());
+        }
+    }
+
     public List<PlatformData> getPlatformSalesData() {
         List<PlatformData> data = new ArrayList<>();
 
