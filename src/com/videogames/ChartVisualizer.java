@@ -32,9 +32,9 @@ public class ChartVisualizer {
         JFreeChart chart = ChartFactory.createPieChart(
                 "Распределение продаж по платформам",
                 dataset,
-                true,   // легенда
-                true,   // подсказки
-                false   // URLs
+                true,   
+                true,   
+                false   
         );
 
         displayChart(chart, "Продажи по платформам");
@@ -54,9 +54,9 @@ public class ChartVisualizer {
                 "Продажи (млн. копий)",
                 dataset,
                 PlotOrientation.VERTICAL,
-                true,   // легенда
-                true,   // подсказки
-                false   // URLs
+                true,   
+                true,   
+                false   
         );
 
         displayChart(chart, "Продажи по годам");
@@ -95,4 +95,5 @@ public class ChartVisualizer {
                     item.getPlatform(), bar, item.getSales());
         }
     }
+
 }
