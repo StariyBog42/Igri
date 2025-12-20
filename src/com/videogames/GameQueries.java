@@ -247,7 +247,6 @@ public class GameQueries {
                 System.out.println("Спортивные игры за период 2000-2006 не найдены.");
             }
 
-            // Дополнительно: вывод самой продаваемой игры
             String sqlTop1 = """
             SELECT name, platform, year, jp_sales
             FROM games 
@@ -357,3 +356,4 @@ public class GameQueries {
         public double getGlobalSales() { return globalSales; }
     }
 }
+
