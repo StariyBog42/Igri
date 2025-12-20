@@ -38,6 +38,7 @@ public class Main {
             queries.query5();
             queries.query6();
             queries.query7();
+            queries.query8();
 
             System.out.println("\n5. Визуализация данных...");
 
